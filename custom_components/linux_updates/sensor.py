@@ -1,13 +1,14 @@
-"""Version: 1.0.0 | Datum: 2025-12-19
+"""Version: 1.0.1 | Datum: 2025-12-19
 Sensors for Linux Updates.
 """
+from datetime import datetime
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import DOMAIN, ATTR_PACKAGES, ATTR_LAST_CHECK, ATTR_LAST_UPDATE
+from .const import DOMAIN, ATTR_PACKAGES
 
 async def async_setup_entry(
     hass: HomeAssistant,
@@ -58,7 +59,10 @@ class LinuxLastCheckSensor(CoordinatorEntity, SensorEntity):
 
     @property
     def native_value(self):
-        return self.coordinator.last_check_success
+        val = self.coordinator.last_check_success
+        if isinstance(val, datetime):
+            return val
+        return None
 
 class LinuxLastUpdateSensor(CoordinatorEntity, SensorEntity):
     """Timestamp for last successful upgrade."""
@@ -72,4 +76,8 @@ class LinuxLastUpdateSensor(CoordinatorEntity, SensorEntity):
 
     @property
     def native_value(self):
-        return self.coordinator.last_update_success
+        # Safety check: Ensure we only return a datetime object
+        val = self.coordinator.last_update_success
+        if isinstance(val, datetime):
+            return val
+        return None
