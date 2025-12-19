@@ -1,4 +1,4 @@
-"""Version: 1.0.0 | Datum: 2025-12-19
+"""Version: 1.5.0 | Datum: 2025-12-19
 Binary sensors for Linux Updates.
 """
 from homeassistant.components.binary_sensor import BinarySensorEntity, BinarySensorDeviceClass
@@ -21,21 +21,24 @@ async def async_setup_entry(
 class LinuxUpdateProblemSensor(CoordinatorEntity, BinarySensorEntity):
     """Representation of an Error State."""
 
-    _attr_name = "Update Problem"
     _attr_device_class = BinarySensorDeviceClass.PROBLEM
+    _attr_has_entity_name = True
 
     def __init__(self, coordinator):
         super().__init__(coordinator)
-        self._attr_unique_id = f"{coordinator.host}_update_problem"
+        self._attr_unique_id = f"{coordinator.entry.entry_id}_update_problem"
+        self._attr_name = "Update Problem" # Rent namn
+
+    @property
+    def device_info(self):
+        return self.coordinator.device_info
 
     @property
     def is_on(self):
-        """Return true if the binary sensor is on."""
         return self.coordinator.error_state
 
     @property
     def extra_state_attributes(self):
-        """Return the state attributes."""
         return {
             "error_message": self.coordinator.error_message
         }

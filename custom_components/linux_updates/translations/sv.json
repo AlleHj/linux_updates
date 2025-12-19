@@ -1,0 +1,46 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten är redan konfigurerad"
+        },
+        "error": {
+            "cannot_connect": "Lyckades inte ansluta via SSH. Kontrollera IP och inloggningsuppgifter.",
+            "unknown": "Ett oväntat fel uppstod"
+        },
+        "step": {
+            "user": {
+                "title": "Lägg till Linux Server",
+                "description": "Ange uppgifter för att ansluta via SSH.",
+                "data": {
+                    "host": "IP-adress / Värdnamn",
+                    "username": "Användarnamn",
+                    "password": "Lösenord",
+                    "ssh_key_file": "Sökväg till SSH-nyckel (valfritt)",
+                    "port": "Port",
+                    "scan_interval": "Uppdateringsfrekvens (Timmar)",
+                    "debug_logging": "Aktivera debug-loggning"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Inställningar för Linux Server",
+                "description": "Uppdatera anslutningsuppgifter och inställningar.",
+                "data": {
+                    "host": "IP-adress / Värdnamn",
+                    "username": "Användarnamn",
+                    "password": "Lösenord",
+                    "ssh_key_file": "Sökväg till SSH-nyckel (valfritt)",
+                    "port": "Port",
+                    "scan_interval": "Uppdateringsfrekvens (Timmar)",
+                    "debug_logging": "Aktivera debug-loggning"
+                }
+            }
+        },
+        "error": {
+            "cannot_connect": "Lyckades inte ansluta med de nya inställningarna."
+        }
+    }
+}

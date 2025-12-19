@@ -9,5 +9,5 @@
   "requirements": [
     "asyncssh==2.14.2"
   ],
-  "version": "1.0.0"
+  "version": "1.7.0"
 }

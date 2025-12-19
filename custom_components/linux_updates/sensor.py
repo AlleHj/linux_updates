@@ -1,4 +1,4 @@
-"""Version: 1.0.1 | Datum: 2025-12-19
+"""Version: 1.5.0 | Datum: 2025-12-19
 Sensors for Linux Updates.
 """
 from datetime import datetime
@@ -27,13 +27,18 @@ async def async_setup_entry(
 class LinuxUpdatesSensor(CoordinatorEntity, SensorEntity):
     """Representation of a Sensor."""
 
-    _attr_name = "Pending Updates"
     _attr_icon = "mdi:package-variant"
     _attr_native_unit_of_measurement = "updates"
+    _attr_has_entity_name = True # Låter HA hantera namnsättningen snyggt
 
     def __init__(self, coordinator):
         super().__init__(coordinator)
-        self._attr_unique_id = f"{coordinator.host}_pending_updates"
+        self._attr_unique_id = f"{coordinator.entry.entry_id}_pending_updates"
+        self._attr_name = "Pending Updates" # Rent namn
+
+    @property
+    def device_info(self):
+        return self.coordinator.device_info
 
     @property
     def native_value(self):
@@ -49,13 +54,18 @@ class LinuxUpdatesSensor(CoordinatorEntity, SensorEntity):
 
 class LinuxLastCheckSensor(CoordinatorEntity, SensorEntity):
     """Timestamp for last successful check."""
-    _attr_name = "Last Check Success"
     _attr_device_class = "timestamp"
     _attr_icon = "mdi:clock-check"
+    _attr_has_entity_name = True
 
     def __init__(self, coordinator):
         super().__init__(coordinator)
-        self._attr_unique_id = f"{coordinator.host}_last_check"
+        self._attr_unique_id = f"{coordinator.entry.entry_id}_last_check"
+        self._attr_name = "Last Check Success" # Rent namn
+
+    @property
+    def device_info(self):
+        return self.coordinator.device_info
 
     @property
     def native_value(self):
@@ -66,13 +76,18 @@ class LinuxLastCheckSensor(CoordinatorEntity, SensorEntity):
 
 class LinuxLastUpdateSensor(CoordinatorEntity, SensorEntity):
     """Timestamp for last successful upgrade."""
-    _attr_name = "Last Upgrade Success"
     _attr_device_class = "timestamp"
     _attr_icon = "mdi:history"
+    _attr_has_entity_name = True
 
     def __init__(self, coordinator):
         super().__init__(coordinator)
-        self._attr_unique_id = f"{coordinator.host}_last_update"
+        self._attr_unique_id = f"{coordinator.entry.entry_id}_last_update"
+        self._attr_name = "Last Upgrade Success" # Rent namn
+
+    @property
+    def device_info(self):
+        return self.coordinator.device_info
 
     @property
     def native_value(self):
