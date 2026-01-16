@@ -1,0 +1,16 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 1 * * *'
+
+jobs:
+  call-central-workflow:
+    uses: AlleHj/ha-workflows/.github/workflows/ha-ci.yml@main
+    with:
+      component: linux_updates
+    secrets: inherit
