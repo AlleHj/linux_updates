@@ -10,9 +10,7 @@ on:
 
 jobs:
   call-central-workflow:
-    # Här pekar vi på filen ovan (ha-ci.yml)
     uses: AlleHj/ha-workflows/.github/workflows/ha-ci.yml@main
     with:
-      # Vi skickar med repo-namnet dynamiskt så att Hjärnan vet vilken mapp den ska kolla i
       component: ${{ github.event.repository.name }}
     secrets: inherit
