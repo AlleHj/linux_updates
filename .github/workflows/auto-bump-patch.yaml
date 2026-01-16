@@ -1,7 +1,7 @@
 name: Auto Bump Patch (z++)
 
 on:
-  workflow_dispatch:      # <-- LÄGG TILL DENNA: Gör att du kan starta manuellt och se den i listan
+  workflow_dispatch:      # Gör att du kan starta manuellt och se den i listan
   push:
     branches: ["main"]
     paths:
@@ -40,12 +40,15 @@ jobs:
           NEW_PATCH=$((patch + 1))
           NEW_VERSION="$major.$minor.$NEW_PATCH"
           
-          # Uppdatera filen
+          # Uppdatera versionsnumret i manifest.json
           jq --arg v "$NEW_VERSION" '.version = $v' $MANIFEST > tmp.json && mv tmp.json $MANIFEST
           
-          # Uppdatera README om den finns (byter badge-länken)
+          # Uppdatera README om den finns (Smarter Regex som behåller färgen)
+          # Förklaring:
+          # \1 = "version-"
+          # \2 = "-blue.svg" (eller vilken färg som helst + .svg)
           if [ -f README.md ]; then
-            sed -i "s/version-$CURRENT_VERSION-blue.svg/version-$NEW_VERSION-blue.svg/g" README.md
+            sed -i -E "s/(version-)$CURRENT_VERSION(-[a-zA-Z]+\.svg)/\1$NEW_VERSION\2/g" README.md
           fi
           
           echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
