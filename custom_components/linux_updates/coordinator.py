@@ -1,9 +1,8 @@
 """Version: 1.9.0 | Datum: 2025-12-19
 DataUpdateCoordinator for Linux Updates.
 """
-import asyncio
 import logging
-from datetime import timedelta, datetime
+from datetime import timedelta
 import asyncssh
 
 from homeassistant.core import HomeAssistant
