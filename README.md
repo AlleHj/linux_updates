@@ -1,6 +1,6 @@
 # Linux Updates for Home Assistant
 
-![Version](https://img.shields.io/badge/version-1.7.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.7.1-blue.svg)
 ![Home Assistant](https://img.shields.io/badge/home%20assistant-component-orange.svg)
 
 En kraftfull Custom Component för Home Assistant som övervakar och hanterar paketuppdateringar på dina Linux-servrar (Ubuntu/Debian) via SSH.
