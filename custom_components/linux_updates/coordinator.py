@@ -1,6 +1,5 @@
-"""Version: 1.9.0 | Datum: 2025-12-19
-DataUpdateCoordinator for Linux Updates.
-"""
+# Version: 2026-05-16 - Ändrat exit_status till returncode för SSHCompletedProcess (asyncssh-kompatibilitet).
+"""DataUpdateCoordinator for Linux Updates."""
 import logging
 from datetime import timedelta
 import asyncssh
@@ -92,7 +91,7 @@ class LinuxUpdatesCoordinator(DataUpdateCoordinator):
             async with self._get_connection() as conn:
                 # 1. Check count (simulate upgrade - Safe Mode)
                 result_check = await conn.run(CMD_CHECK_UPDATES)
-                if result_check.exit_status != 0:
+                if result_check.returncode != 0:
                     raise UpdateFailed(f"APT check failed: {result_check.stderr}")
 
                 output = result_check.stdout
